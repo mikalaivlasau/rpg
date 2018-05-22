@@ -4,8 +4,9 @@ import java.util.Scanner;
 
 public abstract class GameMenu {
 
-    Scanner scanner = new Scanner(System.in);
-    String selectedOption;
+    protected static final String MENU_LINE_SEPARATOR = "---------------------------";
+    protected Scanner scanner = new Scanner(System.in);
+    protected String selectedOption;
 
     public abstract void processMenu();
 

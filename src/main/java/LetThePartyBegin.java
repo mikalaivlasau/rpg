@@ -1,12 +1,13 @@
-import menu.GameMenu;
-import menu.MainMenu;
+import menu.main.MainMenu;
 
 public class LetThePartyBegin {
 
     public static void main(String[] args) {
 
-        GameMenu gameMenu = new MainMenu();
-        gameMenu.processMenu();
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.clearConsole();
+        mainMenu.printMainLogo();
+        mainMenu.processMenu();
     }
 
 }

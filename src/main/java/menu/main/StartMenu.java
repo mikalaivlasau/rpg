@@ -1,4 +1,6 @@
-package menu;
+package menu.main;
+
+import menu.GameMenu;
 
 public class StartMenu extends MainMenu {
 
@@ -26,7 +28,7 @@ public class StartMenu extends MainMenu {
 
     private void showMenu() {
         System.out.println("Start game menu");
-        System.out.println("---------------------------");
+        System.out.println(MENU_LINE_SEPARATOR);
         System.out.println("1. Create your character");
         System.out.println("2. Back to main menu");
     }

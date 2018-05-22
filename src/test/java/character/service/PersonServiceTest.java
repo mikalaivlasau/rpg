@@ -26,13 +26,13 @@ public class PersonServiceTest {
     }
 
     @Test
-    public void shouldProcessPerson() {
+    public void testShouldProcessPerson() {
         Person person = service.saveNewCharacter(warrior);
         assertEquals(warrior, person);
     }
 
     @Test
-    public void shouldSavePerson() {
+    public void testShouldSavePerson() {
         service.saveNewCharacter(warrior);
         assertEquals(warrior, STORAGE.get(CHARACTER_KEY));
     }
