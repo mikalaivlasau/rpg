@@ -1,7 +1,10 @@
 package location;
 
+import location.object.CompositeMapObject;
+
 public class MapLocation implements Location {
     private MapFieldType[][] map;
+    private CompositeMapObject compositeMapObject;
 
     public MapLocation(int size) {
         map = new MapFieldType[size][size];
@@ -14,6 +17,15 @@ public class MapLocation implements Location {
 
     public MapFieldType[][] getMap() {
         return map;
+    }
+
+    public void setCompositeMapObject(CompositeMapObject compositeMapObject) {
+        this.compositeMapObject = compositeMapObject;
+    }
+
+    @Override
+    public void populate() {
+        compositeMapObject.map(map);
     }
 
     @Override

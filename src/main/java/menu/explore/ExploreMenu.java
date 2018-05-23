@@ -7,6 +7,5 @@ public class ExploreMenu extends GameMenu {
     public void processMenu() {
 
 
-
     }
 }

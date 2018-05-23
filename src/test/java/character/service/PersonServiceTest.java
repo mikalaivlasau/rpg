@@ -15,7 +15,8 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PersonServiceTest {
-    @InjectMocks private DefaultPersonService service;
+    @InjectMocks
+    private DefaultPersonService service;
 
     private Person warrior;
 

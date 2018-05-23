@@ -1,9 +1,9 @@
 package location;
 
 public enum MapFieldType {
-    EMPTY("+"),
+    EMPTY("."),
     PERSON("X"),
-    MONSTER("@"),
+    CREATURE("@"),
     TREASURE("~");
 
     private final String sign;
