@@ -16,9 +16,11 @@ public class MapLocationTest {
     @InjectMocks
     private MapLocation mapLocation = new MapLocation(3);
 
+    private MapObject personMapObject;
+
     @Before
     public void setUp() throws Exception {
-        MapObject person = new PersonMapObject(0, 0);
+        personMapObject = new PersonMapObject(0, 0);
 
         MapObject creature1 = new CreatureMapObject(2, 2);
         MapObject creature2 = new CreatureMapObject(2, 0);
@@ -33,7 +35,7 @@ public class MapLocationTest {
         treasures.addObject(treasure);
 
         CompositeMapObject allObjects = new CompositeMapObject();
-        allObjects.addObject(person);
+        allObjects.addObject(personMapObject);
         allObjects.addObject(creatures);
         allObjects.addObject(treasure);
 
@@ -105,5 +107,49 @@ public class MapLocationTest {
             }
         }
         assertEquals(1, count);
+    }
+
+    @Test
+    public void testPersonShouldGo4Directions() {
+        int size = mapLocation.getMap().length;
+        assertEquals(0, personMapObject.getX());
+        assertEquals(0, personMapObject.getY());
+        personMapObject.goEast(size);
+        assertEquals(1, personMapObject.getX());
+        assertEquals(0, personMapObject.getY());
+        personMapObject.goSouth(size);
+        assertEquals(1, personMapObject.getX());
+        assertEquals(1, personMapObject.getY());
+        personMapObject.goWest();
+        assertEquals(0, personMapObject.getX());
+        assertEquals(1, personMapObject.getY());
+        personMapObject.goNorth();
+        assertEquals(0, personMapObject.getX());
+        assertEquals(0, personMapObject.getY());
+    }
+
+    @Test
+    public void testPersonShouldNotGoOutTheMap() {
+        int size = mapLocation.getMap().length;
+        personMapObject.goNorth();
+        assertEquals(0, personMapObject.getX());
+        assertEquals(0, personMapObject.getY());
+        for (int i = 0; i < size + 2; i++) {
+            personMapObject.goEast(size);
+        }
+        assertEquals(size, personMapObject.getX());
+        assertEquals(0, personMapObject.getY());
+
+        for (int i = 0; i < size + 2; i++) {
+            personMapObject.goSouth(size);
+        }
+        assertEquals(size, personMapObject.getX());
+        assertEquals(size, personMapObject.getY());
+        for (int i = 0; i < size + 2; i++) {
+            personMapObject.goWest();
+        }
+        assertEquals(0, personMapObject.getX());
+        assertEquals(size, personMapObject.getY());
+
     }
 }

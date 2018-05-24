@@ -5,7 +5,7 @@ import location.MapFieldType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompositeMapObject implements MapObject {
+public class CompositeMapObject extends MapObject {
     private List<MapObject> objects = new ArrayList<>();
 
     public void addObject(MapObject location) {
