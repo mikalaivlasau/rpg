@@ -15,4 +15,9 @@ public class DefaultPersonService implements PersonService {
         STORAGE.put(CHARACTER_KEY, person);
         return person;
     }
+
+    @Override
+    public Person getPerson() {
+        return STORAGE.get(CHARACTER_KEY);
+    }
 }

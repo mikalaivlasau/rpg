@@ -1,5 +1,7 @@
 package location.map.service;
 
+import character.Person;
+import character.Skeleton;
 import location.Location;
 import location.map.Coordinate;
 import location.map.MapLocation;
@@ -11,18 +13,27 @@ import location.map.object.TreasureMapObject;
 import util.RandomUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 public class MapLocationService implements LocationService {
+	private static final Map<Coordinate, Person> STORAGE = new HashMap<>();
 	private List<Coordinate> coordinateList = new ArrayList<>();
 
 	@Override
 	public Location generateLocation(int size) {
 		MapObject personMapObject = new PersonMapObject(getUniqueRandomCoordinate(size));
 
-		MapObject creature1 = new CreatureMapObject(getUniqueRandomCoordinate(size));
-		MapObject creature2 = new CreatureMapObject(getUniqueRandomCoordinate(size));
+		CreatureMapObject creature1 = new CreatureMapObject(getUniqueRandomCoordinate(size));
+		Person creaturePerson1 = new Skeleton();
+		creature1.setCreature(creaturePerson1);
+		saveNewCreature(creature1);
+
+		CreatureMapObject creature2 = new CreatureMapObject(getUniqueRandomCoordinate(size));
+		Person creaturePerson2 = new Skeleton();
+		creature2.setCreature(creaturePerson2);
+		saveNewCreature(creature2);
 
 		CompositeMapObject creatures = new CompositeMapObject();
 		creatures.addObject(creature1);
@@ -39,6 +50,16 @@ public class MapLocationService implements LocationService {
 		allObjects.addObject(treasure);
 
 		return new MapLocation(size, allObjects);
+	}
+
+	@Override
+	public void saveNewCreature(CreatureMapObject creatureMapObject) {
+		STORAGE.put(creatureMapObject.getCoordinate(), creatureMapObject.getCreature());
+	}
+
+	@Override
+	public Person getCreature(Coordinate coordinate) {
+		return STORAGE.get(coordinate);
 	}
 
 	private Coordinate getUniqueRandomCoordinate(int size) {

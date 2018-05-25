@@ -31,21 +31,21 @@ public class ExploreMenu extends GameMenu {
 				case "a":
 					clearConsole();
 					personMapObject.move(Direction.WEST, mapLocation);
-					mapLocation.checkField(personMapObject.getCoordinate().getX(), personMapObject.getCoordinate().getY());
+
 					mapLocation.populate();
 					mapLocation.draw();
 					break;
 				case "s":
 					clearConsole();
 					personMapObject.move(Direction.SOUTH, mapLocation);
-					mapLocation.checkField(personMapObject.getCoordinate().getX(), personMapObject.getCoordinate().getY());
+
 					mapLocation.populate();
 					mapLocation.draw();
 					break;
 				case "d":
 					clearConsole();
 					personMapObject.move(Direction.EAST, mapLocation);
-					mapLocation.checkField(personMapObject.getCoordinate().getX(), personMapObject.getCoordinate().getY());
+
 					mapLocation.populate();
 					mapLocation.draw();
 					break;

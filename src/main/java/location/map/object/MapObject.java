@@ -1,5 +1,7 @@
 package location.map.object;
 
+import fight.DefaultFightService;
+import fight.FightService;
 import location.Direction;
 import location.Location;
 import location.map.Coordinate;
@@ -18,6 +20,9 @@ public abstract class MapObject {
 				this.coordinate = coordinate;
 				break;
 			case CREATURE:
+				FightService fightService = new DefaultFightService();
+				fightService.fight(coordinate);
+				this.coordinate = coordinate;
 				break;
 			case TREASURE:
 				break;

@@ -1,9 +1,12 @@
 package location.map.object;
 
+import character.Person;
 import location.map.Coordinate;
 import location.map.MapFieldType;
 
 public class CreatureMapObject extends MapObject {
+	private Person creature;
+
 	public CreatureMapObject(Coordinate coordinate) {
 		this.coordinate = coordinate;
 	}
@@ -11,5 +14,13 @@ public class CreatureMapObject extends MapObject {
 	@Override
 	public void arrange(MapFieldType[][] map) {
 		map[coordinate.getY()][coordinate.getX()] = MapFieldType.CREATURE;
+	}
+
+	public Person getCreature() {
+		return creature;
+	}
+
+	public void setCreature(Person creature) {
+		this.creature = creature;
 	}
 }

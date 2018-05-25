@@ -6,4 +6,5 @@ public interface PersonService {
 
     Person saveNewCharacter(Person person);
 
+	Person getPerson();
 }
