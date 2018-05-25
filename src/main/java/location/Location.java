@@ -1,11 +1,12 @@
 package location;
 
+import location.map.MapFieldType;
+
 public interface Location {
 
     void populate();
 
     void draw();
 
-    boolean isCellBusy(int x, int y);
-
+    MapFieldType checkField(int x, int y);
 }

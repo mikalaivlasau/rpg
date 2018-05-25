@@ -1,76 +1,60 @@
 package menu.explore;
 
-import location.Location;
-import location.MapLocation;
-import location.object.*;
+import location.Direction;
+import location.map.MapLocation;
+import location.map.object.PersonMapObject;
+import location.map.service.LocationService;
+import location.map.service.MapLocationService;
 import menu.GameMenu;
 
 public class ExploreMenu extends GameMenu {
-    @Override
-    public void processMenu() {
-        MapObject personMapObject = new PersonMapObject(0, 0);
+	LocationService locationService = new MapLocationService();
 
-        MapObject creature1 = new CreatureMapObject(2, 2);
-        MapObject creature2 = new CreatureMapObject(2, 0);
+	@Override
+	public void processMenu() {
+		MapLocation mapLocation = (MapLocation) locationService.generateLocation(10);
+		PersonMapObject personMapObject = mapLocation.getMapObject().getPersonMapObject();
+		clearConsole();
+		mapLocation.populate();
+		mapLocation.draw();
 
-        CompositeMapObject creatures = new CompositeMapObject();
-        creatures.addObject(creature1);
-        creatures.addObject(creature2);
+		while (true) {
+			selectedOption = scanner.next();
+			switch (selectedOption) {
+				case "w":
+					clearConsole();
+					personMapObject.move(Direction.NORTH, mapLocation);
 
-        MapObject treasure = new TreasureMapObject(2, 1);
+					mapLocation.populate();
+					mapLocation.draw();
+					break;
+				case "a":
+					clearConsole();
+					personMapObject.move(Direction.WEST, mapLocation);
+					mapLocation.checkField(personMapObject.getCoordinate().getX(), personMapObject.getCoordinate().getY());
+					mapLocation.populate();
+					mapLocation.draw();
+					break;
+				case "s":
+					clearConsole();
+					personMapObject.move(Direction.SOUTH, mapLocation);
+					mapLocation.checkField(personMapObject.getCoordinate().getX(), personMapObject.getCoordinate().getY());
+					mapLocation.populate();
+					mapLocation.draw();
+					break;
+				case "d":
+					clearConsole();
+					personMapObject.move(Direction.EAST, mapLocation);
+					mapLocation.checkField(personMapObject.getCoordinate().getX(), personMapObject.getCoordinate().getY());
+					mapLocation.populate();
+					mapLocation.draw();
+					break;
+				case "p":
+					clearConsole();
+					System.out.println("PAUSE!!!");
+					break;
+			}
 
-        CompositeMapObject treasures = new CompositeMapObject();
-        treasures.addObject(treasure);
-
-        CompositeMapObject allObjects = new CompositeMapObject();
-        allObjects.addObject(personMapObject);
-        allObjects.addObject(creatures);
-        allObjects.addObject(treasure);
-
-        int size = 3;
-        Location mapLocation = new MapLocation(size, allObjects);
-
-        clearConsole();
-        mapLocation.populate();
-        mapLocation.draw();
-
-        while (true) {
-            selectedOption = scanner.next();
-            switch (selectedOption) {
-                case "w":
-                    clearConsole();
-                    personMapObject.goNorth();
-                    mapLocation.isCellBusy(personMapObject.getX(), personMapObject.getY());
-                    mapLocation.populate();
-                    mapLocation.draw();
-                    break;
-                case "a":
-                    clearConsole();
-                    personMapObject.goWest();
-                    mapLocation.isCellBusy(personMapObject.getX(), personMapObject.getY());
-                    mapLocation.populate();
-                    mapLocation.draw();
-                    break;
-                case "s":
-                    clearConsole();
-                    personMapObject.goSouth(size);
-                    mapLocation.isCellBusy(personMapObject.getX(), personMapObject.getY());
-                    mapLocation.populate();
-                    mapLocation.draw();
-                    break;
-                case "d":
-                    clearConsole();
-                    personMapObject.goEast(size);
-                    mapLocation.isCellBusy(personMapObject.getX(), personMapObject.getY());
-                    mapLocation.populate();
-                    mapLocation.draw();
-                    break;
-                case "p":
-                    clearConsole();
-                    System.out.println("PAUSE!!!");
-                    break;
-            }
-
-        }
-    }
+		}
+	}
 }
