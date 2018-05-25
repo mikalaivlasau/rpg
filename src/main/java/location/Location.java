@@ -6,5 +6,6 @@ public interface Location {
 
     void draw();
 
+    boolean isCellBusy(int x, int y);
 
 }

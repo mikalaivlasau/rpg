@@ -10,11 +10,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(MockitoJUnitRunner.class)
+
 public class MapLocationTest {
 
-    @InjectMocks
-    private MapLocation mapLocation = new MapLocation(3);
+    private MapLocation mapLocation;
 
     private MapObject personMapObject;
 
@@ -39,7 +38,7 @@ public class MapLocationTest {
         allObjects.addObject(creatures);
         allObjects.addObject(treasure);
 
-        mapLocation.setCompositeMapObject(allObjects);
+        mapLocation = new MapLocation(3, allObjects);
     }
 
     @Test
@@ -139,7 +138,6 @@ public class MapLocationTest {
         }
         assertEquals(size, personMapObject.getX());
         assertEquals(0, personMapObject.getY());
-
         for (int i = 0; i < size + 2; i++) {
             personMapObject.goSouth(size);
         }
@@ -150,6 +148,29 @@ public class MapLocationTest {
         }
         assertEquals(0, personMapObject.getX());
         assertEquals(size, personMapObject.getY());
+    }
 
+    @Test
+    public void testPreviousPlaceShouldBeEmpty() {
+        int size = mapLocation.getMap().length;
+        mapLocation.populate();
+        personMapObject.goEast(size);
+        mapLocation.populate();
+        assertEquals(MapFieldType.EMPTY, mapLocation.getMap()[0][0]);
+    }
+
+    @Test
+    public void testMapObjectShouldBeRemovedWhenPersonStepsInto() {
+        int size = mapLocation.getMap().length;
+        mapLocation.populate();
+        assertEquals(MapFieldType.CREATURE, mapLocation.getMap()[0][2]);
+        personMapObject.goEast(size);
+        mapLocation.populate();
+        personMapObject.goEast(size);
+        mapLocation.isCellBusy(personMapObject.getX(), personMapObject.getY());
+        mapLocation.populate();
+        personMapObject.goWest();
+        mapLocation.populate();
+        assertEquals(MapFieldType.EMPTY, mapLocation.getMap()[0][2]);
     }
 }

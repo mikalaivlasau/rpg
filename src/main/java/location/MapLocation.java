@@ -4,10 +4,15 @@ import location.object.CompositeMapObject;
 
 public class MapLocation implements Location {
     private MapFieldType[][] map;
-    private CompositeMapObject compositeMapObject;
+    private CompositeMapObject mapObject;
 
-    public MapLocation(int size) {
-        map = new MapFieldType[size][size];
+    public MapLocation(int size, CompositeMapObject mapObject) {
+        this.map = new MapFieldType[size][size];
+        this.mapObject = mapObject;
+        clearMap();
+    }
+
+    private void clearMap() {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 map[i][j] = MapFieldType.EMPTY;
@@ -19,13 +24,10 @@ public class MapLocation implements Location {
         return map;
     }
 
-    public void setCompositeMapObject(CompositeMapObject compositeMapObject) {
-        this.compositeMapObject = compositeMapObject;
-    }
-
     @Override
     public void populate() {
-        compositeMapObject.map(map);
+        clearMap();
+        mapObject.map(map);
     }
 
     @Override
@@ -36,6 +38,16 @@ public class MapLocation implements Location {
                 System.out.print(" ");
             }
             System.out.println();
+        }
+    }
+
+    @Override
+    public boolean isCellBusy(int x, int y) {
+        if (MapFieldType.EMPTY.equals(map[y][x])) {
+            return false;
+        } else {
+            mapObject.removeObject(x, y, mapObject);
+            return true;
         }
     }
 }
