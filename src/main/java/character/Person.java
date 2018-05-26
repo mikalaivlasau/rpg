@@ -1,14 +1,24 @@
 package character;
 
+import attribute.Attribute;
+import attribute.CompositeAttribute;
+import attribute.RawBonus;
+
 public abstract class Person {
 	String name;
-	int healthpoint;
+	int health;
 	int experience;
 	int strength;
 	int agility;
-	int intelligence;
+	int stamina;
+	int attack;
+	int defense;
 
 	public abstract void useClassPower();
+
+	public boolean isAlive() {
+		return health > 0;
+	}
 
 	public String getName() {
 		return name;
@@ -42,19 +52,41 @@ public abstract class Person {
 		this.agility = agility;
 	}
 
-	public int getIntelligence() {
-		return intelligence;
+	public int getStamina() {
+		return stamina;
 	}
 
-	public void setIntelligence(int intelligence) {
-		this.intelligence = intelligence;
+	public void setStamina(int stamina) {
+		this.stamina = stamina;
 	}
 
-	public int getHealthpoint() {
-		return healthpoint;
+	public int getHealth() {
+		return health;
 	}
 
-	public void setHealthpoint(int healthpoint) {
-		this.healthpoint = healthpoint;
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public int getAttack() {
+		Attribute basic = new RawBonus(getStrength());
+		CompositeAttribute finalAttack = new CompositeAttribute();
+		finalAttack.addComponent(basic);
+		return finalAttack.calculate();
+	}
+
+	public void setAttack(int attack) {
+		this.attack = attack;
+	}
+
+	public int getDefense() {
+		Attribute basic = new RawBonus(getStamina());
+		CompositeAttribute finalDefense = new CompositeAttribute();
+		finalDefense.addComponent(basic);
+		return finalDefense.calculate();
+	}
+
+	public void setDefense(int defense) {
+		this.defense = defense;
 	}
 }

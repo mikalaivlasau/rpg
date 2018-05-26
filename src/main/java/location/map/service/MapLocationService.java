@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MapLocationService implements LocationService {
-	private static final Map<Coordinate, Person> STORAGE = new HashMap<>();
+	private static final Map<String, Person> STORAGE = new HashMap<>();
 	private List<Coordinate> coordinateList = new ArrayList<>();
 
 	@Override
@@ -54,12 +54,12 @@ public class MapLocationService implements LocationService {
 
 	@Override
 	public void saveNewCreature(CreatureMapObject creatureMapObject) {
-		STORAGE.put(creatureMapObject.getCoordinate(), creatureMapObject.getCreature());
+		STORAGE.put(creatureMapObject.getCoordinate().toString(), creatureMapObject.getCreature());
 	}
 
 	@Override
 	public Person getCreature(Coordinate coordinate) {
-		return STORAGE.get(coordinate);
+		return STORAGE.get(coordinate.toString());
 	}
 
 	private Coordinate getUniqueRandomCoordinate(int size) {

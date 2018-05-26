@@ -12,6 +12,6 @@ public class RandomUtil {
 	}
 
 	public static Coordinate getRandomCoordinate(int size) {
-		return new Coordinate(getRandomValueInRange(1, size - 1), getRandomValueInRange(1, size - 1));
+		return new Coordinate(getRandomValueInRange(1, size - 2), getRandomValueInRange(1, size - 2));
 	}
 }

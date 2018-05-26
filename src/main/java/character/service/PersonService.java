@@ -4,7 +4,7 @@ import character.Person;
 
 public interface PersonService {
 
-    Person saveNewCharacter(Person person);
+	Person saveNewCharacter(Person person);
 
 	Person getPerson();
 }

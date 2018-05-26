@@ -4,9 +4,9 @@ import location.map.MapFieldType;
 
 public interface Location {
 
-    void populate();
+	void populate();
 
-    void draw();
+	void draw();
 
-    MapFieldType checkField(int x, int y);
+	MapFieldType checkField(int x, int y);
 }

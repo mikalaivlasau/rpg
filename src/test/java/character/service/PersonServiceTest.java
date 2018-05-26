@@ -12,29 +12,28 @@ import static character.service.DefaultPersonService.CHARACTER_KEY;
 import static character.service.DefaultPersonService.STORAGE;
 import static org.junit.Assert.assertEquals;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class PersonServiceTest {
-    @InjectMocks
-    private DefaultPersonService service;
+	@InjectMocks
+	private DefaultPersonService service;
 
-    private Person warrior;
+	private Person warrior;
 
-    @Before
-    public void setUp() {
-        String name = "Ktulhu";
-        warrior = new Warrior(name);
-    }
+	@Before
+	public void setUp() {
+		String name = "Ktulhu";
+		warrior = new Warrior(name);
+	}
 
-    @Test
-    public void testShouldProcessPerson() {
-        Person person = service.saveNewCharacter(warrior);
-        assertEquals(warrior, person);
-    }
+	@Test
+	public void testShouldProcessPerson() {
+		Person person = service.saveNewCharacter(warrior);
+		assertEquals(warrior, person);
+	}
 
-    @Test
-    public void testShouldSavePerson() {
-        service.saveNewCharacter(warrior);
-        assertEquals(warrior, STORAGE.get(CHARACTER_KEY));
-    }
+	@Test
+	public void testShouldSavePerson() {
+		service.saveNewCharacter(warrior);
+		assertEquals(warrior, STORAGE.get(CHARACTER_KEY));
+	}
 }

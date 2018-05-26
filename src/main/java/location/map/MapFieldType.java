@@ -16,4 +16,4 @@ public enum MapFieldType {
 	public String getSign() {
 		return sign;
 	}
-	}
+}
