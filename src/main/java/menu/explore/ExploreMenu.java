@@ -24,28 +24,24 @@ public class ExploreMenu extends GameMenu {
 				case "w":
 					clearConsole();
 					personMapObject.move(Direction.NORTH, mapLocation);
-
 					mapLocation.populate();
 					mapLocation.draw();
 					break;
 				case "a":
 					clearConsole();
 					personMapObject.move(Direction.WEST, mapLocation);
-
 					mapLocation.populate();
 					mapLocation.draw();
 					break;
 				case "s":
 					clearConsole();
 					personMapObject.move(Direction.SOUTH, mapLocation);
-
 					mapLocation.populate();
 					mapLocation.draw();
 					break;
 				case "d":
 					clearConsole();
 					personMapObject.move(Direction.EAST, mapLocation);
-
 					mapLocation.populate();
 					mapLocation.draw();
 					break;

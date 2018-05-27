@@ -3,18 +3,31 @@ package character;
 import attribute.Attribute;
 import attribute.CompositeAttribute;
 import attribute.RawBonus;
+import experience.Level;
 
 public abstract class Person {
 	String name;
 	int health;
+	int healthMax;
 	int experience;
 	int strength;
 	int agility;
 	int stamina;
 	int attack;
 	int defense;
+	Level level = Level.ONE;
 
 	public abstract void useClassPower();
+
+	public void levelUp(Level level) {
+		double k = 1.2;
+		healthMax = (int) (healthMax * k);
+		health = healthMax;
+		strength = (int) (strength * k);
+		agility = (int) (agility * k);
+		stamina = (int) (stamina * k);
+		this.level = level;
+	}
 
 	public boolean isAlive() {
 		return health > 0;
@@ -68,6 +81,14 @@ public abstract class Person {
 		this.health = health;
 	}
 
+	public int getHealthMax() {
+		return healthMax;
+	}
+
+	public void setHealthMax(int healthMax) {
+		this.healthMax = healthMax;
+	}
+
 	public int getAttack() {
 		Attribute basic = new RawBonus(getStrength());
 		CompositeAttribute finalAttack = new CompositeAttribute();
@@ -88,5 +109,13 @@ public abstract class Person {
 
 	public void setDefense(int defense) {
 		this.defense = defense;
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 }

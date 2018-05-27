@@ -1,5 +1,6 @@
 package location.map.object;
 
+import location.map.Coordinate;
 import location.map.MapFieldType;
 
 import java.util.ArrayList;
@@ -30,15 +31,15 @@ public class CompositeMapObject extends MapObject {
 		objects.remove(location);
 	}
 
-	public void removeObject(int x, int y, CompositeMapObject composite) {
+	public void removeObject(Coordinate coordinate, CompositeMapObject composite) {
 		for (MapObject obj : composite.getObjects()) {
-			if (!(obj instanceof PersonMapObject)
-					&& obj.getCoordinate().getX() == x && obj.getCoordinate().getY() == y) {
+			if (obj instanceof CompositeMapObject) {
+				removeObject(coordinate, (CompositeMapObject) obj);
+			}
+			if (!(obj instanceof PersonMapObject) && obj.getCoordinate().getX() == coordinate.getX() && obj
+					.getCoordinate().getY() == coordinate.getY()) {
 				composite.removeObject(obj);
 				break;
-			}
-			if (obj instanceof CompositeMapObject) {
-				removeObject(x, y, (CompositeMapObject) obj);
 			}
 		}
 	}

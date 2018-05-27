@@ -3,6 +3,8 @@ package fight;
 import character.Person;
 import character.service.DefaultPersonService;
 import character.service.PersonService;
+import experience.DefaultExperienceService;
+import experience.ExperienceService;
 import location.map.Coordinate;
 import location.map.service.LocationService;
 import location.map.service.MapLocationService;
@@ -15,15 +17,16 @@ import java.util.concurrent.TimeUnit;
 public class DefaultFightService implements FightService {
 	private PersonService personService = new DefaultPersonService();
 	private LocationService locationService = new MapLocationService();
+	private ExperienceService experienceService = new DefaultExperienceService();
 	private List<String> fightLogs = new ArrayList<>();
+	private boolean isPersonWin;
 
 	@Override
-	public void fight(Coordinate coordinate) {
+	public boolean fight(Coordinate coordinate) {
 		Person person = personService.getPerson();
 		Person creature = locationService.getCreature(coordinate);
-
-		startFight(person, creature);
-
+		processFight(person, creature);
+		return isPersonWin;
 	}
 
 	private void drawFightStatsAndLogs(Person person, Person creature) {
@@ -52,13 +55,13 @@ public class DefaultFightService implements FightService {
 		fightLogs.forEach(System.out::println);
 
 		try {
-			TimeUnit.SECONDS.sleep(1);
+			TimeUnit.MILLISECONDS.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void startFight(Person person, Person creature) {
+	private void processFight(Person person, Person creature) {
 		drawFightStatsAndLogs(person, creature);
 		do {
 			attack(person, creature);
@@ -70,14 +73,16 @@ public class DefaultFightService implements FightService {
 		} while (person.isAlive() && creature.isAlive());
 
 		if (person.isAlive()) {
-			System.out.println("You win!");
+			System.out.println(person.getName() + " survived!");
+			experienceService.processExperience(person, creature.getExperience());
+			isPersonWin = true;
 		} else if (creature.isAlive()) {
-			System.out.println("You lose!");
+			System.out.println(person.getName() + " is dead!");
+			isPersonWin = false;
 		}
 	}
 
 	private void attack(Person attacker, Person defender) {
-
 		int damage = Math.max(0, attacker.getAttack() - defender.getDefense());
 		int health = Math.max(0, defender.getHealth() - damage);
 		defender.setHealth(health);

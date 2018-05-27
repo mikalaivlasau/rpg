@@ -6,9 +6,15 @@ import location.Direction;
 import location.Location;
 import location.map.Coordinate;
 import location.map.MapFieldType;
+import location.map.MapLocation;
+import menu.GameMenu;
+import menu.explore.TreasureMenu;
+import menu.main.MainMenu;
+
+import static menu.GameMenu.clearConsole;
 
 public abstract class MapObject {
-	Coordinate coordinate;
+	Coordinate coordinate = new Coordinate(-1, -1);
 
 	public abstract void arrange(MapFieldType[][] map);
 
@@ -21,10 +27,24 @@ public abstract class MapObject {
 				break;
 			case CREATURE:
 				FightService fightService = new DefaultFightService();
-				fightService.fight(coordinate);
+				boolean isPersonWin = fightService.fight(coordinate);
+				if (isPersonWin) {
+					MapLocation mapLocation = (MapLocation) location;
+					mapLocation.getMapObject().removeObject(coordinate, mapLocation.getMapObject());
+				} else {
+					clearConsole();
+					System.out.println("THE END!!!");
+					GameMenu mainMenu = new MainMenu();
+					mainMenu.processMenu();
+				}
 				this.coordinate = coordinate;
 				break;
 			case TREASURE:
+				GameMenu treasureMenu = new TreasureMenu();
+				treasureMenu.processMenu();
+				MapLocation mapLocation = (MapLocation) location;
+				mapLocation.getMapObject().removeObject(coordinate, mapLocation.getMapObject());
+				this.coordinate = coordinate;
 				break;
 		}
 
