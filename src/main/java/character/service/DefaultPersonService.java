@@ -20,4 +20,9 @@ public class DefaultPersonService implements PersonService {
 	public Person getPerson() {
 		return STORAGE.get(CHARACTER_KEY);
 	}
+
+	@Override
+	public void removePerson() {
+		STORAGE.clear();
+	}
 }

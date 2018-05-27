@@ -8,11 +8,11 @@ public abstract class GameMenu {
 	protected Scanner scanner = new Scanner(System.in);
 	protected String selectedOption;
 
-	public abstract void processMenu();
-
 	public static void clearConsole() {
 		for (int i = 0; i < 50; i++) {
 			System.out.println();
 		}
 	}
+
+	public abstract void processMenu();
 }

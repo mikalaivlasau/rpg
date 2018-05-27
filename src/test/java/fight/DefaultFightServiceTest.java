@@ -35,7 +35,7 @@ public class DefaultFightServiceTest {
 		vovanchik = new Warrior("Vovanchik");
 		when(personService.getPerson()).thenReturn(vovanchik);
 		skeleton = new Skeleton();
-		when(locationService.getCreature(coordinate)).thenReturn(skeleton);
+		when(locationService.getPersonByCoordinate(coordinate)).thenReturn(skeleton);
 	}
 
 	@Test

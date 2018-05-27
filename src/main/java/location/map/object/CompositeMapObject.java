@@ -44,6 +44,19 @@ public class CompositeMapObject extends MapObject {
 		}
 	}
 
+	public boolean isEmpty() {
+		boolean isEmpty = true;
+		for (MapObject obj : objects) {
+			if (obj instanceof CompositeMapObject) {
+				if (!((CompositeMapObject) obj).getObjects().isEmpty()) {
+					isEmpty = false;
+					break;
+				}
+			}
+		}
+		return isEmpty;
+	}
+
 	public List<MapObject> getObjects() {
 		return objects;
 	}

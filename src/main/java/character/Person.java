@@ -5,7 +5,9 @@ import attribute.CompositeAttribute;
 import attribute.RawBonus;
 import experience.Level;
 
-public abstract class Person {
+import java.io.Serializable;
+
+public abstract class Person implements Serializable {
 	String name;
 	int health;
 	int healthMax;

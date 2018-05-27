@@ -24,7 +24,7 @@ public class DefaultFightService implements FightService {
 	@Override
 	public boolean fight(Coordinate coordinate) {
 		Person person = personService.getPerson();
-		Person creature = locationService.getCreature(coordinate);
+		Person creature = locationService.getPersonByCoordinate(coordinate);
 		processFight(person, creature);
 		return isPersonWin;
 	}

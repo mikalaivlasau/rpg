@@ -27,13 +27,11 @@ public class MapLocationService implements LocationService {
 
 		CreatureMapObject creature1 = new CreatureMapObject(getUniqueRandomCoordinate(size));
 		Person creaturePerson1 = new Skeleton();
-		creature1.setCreature(creaturePerson1);
-		saveNewCreature(creature1);
+		saveNewMapObject(creature1.getCoordinate(), creaturePerson1);
 
 		CreatureMapObject creature2 = new CreatureMapObject(getUniqueRandomCoordinate(size));
 		Person creaturePerson2 = new Skeleton();
-		creature2.setCreature(creaturePerson2);
-		saveNewCreature(creature2);
+		saveNewMapObject(creature2.getCoordinate(), creaturePerson2);
 
 		CompositeMapObject creatures = new CompositeMapObject();
 		creatures.addObject(creature1);
@@ -47,19 +45,23 @@ public class MapLocationService implements LocationService {
 		CompositeMapObject allObjects = new CompositeMapObject();
 		allObjects.addObject(personMapObject);
 		allObjects.addObject(creatures);
-		allObjects.addObject(treasure);
+		allObjects.addObject(treasures);
 
 		return new MapLocation(size, allObjects);
 	}
 
 	@Override
-	public void saveNewCreature(CreatureMapObject creatureMapObject) {
-		STORAGE.put(creatureMapObject.getCoordinate().toString(), creatureMapObject.getCreature());
+	public void saveNewMapObject(Coordinate coordinate, Person person) {
+		STORAGE.put(coordinate.toString(), person);
 	}
 
 	@Override
-	public Person getCreature(Coordinate coordinate) {
+	public Person getPersonByCoordinate(Coordinate coordinate) {
 		return STORAGE.get(coordinate.toString());
+	}
+
+	public void removePersonByCoordinate(Coordinate coordinate) {
+		STORAGE.remove(coordinate.toString());
 	}
 
 	private Coordinate getUniqueRandomCoordinate(int size) {

@@ -18,7 +18,7 @@ public class ExploreMenu extends GameMenu {
 		mapLocation.populate();
 		mapLocation.draw();
 
-		while (true) {
+		while (!mapLocation.getMapObject().isEmpty()) {
 			selectedOption = scanner.next();
 			switch (selectedOption) {
 				case "w":
@@ -52,5 +52,8 @@ public class ExploreMenu extends GameMenu {
 			}
 
 		}
+
+		GameMenu menu = new EndLevelMenu();
+		menu.processMenu();
 	}
 }

@@ -3,12 +3,13 @@ package location.map.service;
 import character.Person;
 import location.Location;
 import location.map.Coordinate;
-import location.map.object.CreatureMapObject;
 
 public interface LocationService {
 	Location generateLocation(int size);
 
-	void saveNewCreature(CreatureMapObject creatureMapObject);
+	void saveNewMapObject(Coordinate coordinate, Person person);
 
-	Person getCreature(Coordinate coordinate);
+	Person getPersonByCoordinate(Coordinate coordinate);
+
+	void removePersonByCoordinate(Coordinate coordinate);
 }
