@@ -10,8 +10,7 @@ import location.map.MapLocation;
 import menu.GameMenu;
 import menu.explore.TreasureMenu;
 import menu.main.MainMenu;
-
-import static menu.GameMenu.clearConsole;
+import menu.service.DisplayService;
 
 /**
  * The object on the map.
@@ -47,8 +46,8 @@ public abstract class MapObject {
 					mapLocation.getMapObject().removeObject(coordinate, mapLocation.getMapObject());
 					this.coordinate = coordinate;
 				} else {
-					clearConsole();
-					System.out.println("THE END!!!");
+					DisplayService.printDeathLogo();
+					System.out.println("YOU ARE DEAD!!!");
 					GameMenu mainMenu = new MainMenu();
 					mainMenu.processMenu();
 				}

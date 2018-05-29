@@ -7,8 +7,8 @@ public enum MapFieldType {
 	EMPTY("."),
 	PERSON("X"),
 	CREATURE("@"),
-	TREASURE("~"),
-	WALL("+");
+	TREASURE("U"),
+	WALL("#");
 
 	private final String sign;
 

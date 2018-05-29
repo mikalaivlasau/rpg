@@ -1,5 +1,6 @@
 import menu.GameMenu;
 import menu.main.MainMenu;
+import menu.service.DisplayService;
 
 public class LetThePartyBegin {
 
@@ -7,7 +8,7 @@ public class LetThePartyBegin {
 
 		MainMenu mainMenu = new MainMenu();
 		GameMenu.clearConsole();
-		mainMenu.printMainLogo();
+		DisplayService.printMainLogo();
 		mainMenu.processMenu();
 
 	}

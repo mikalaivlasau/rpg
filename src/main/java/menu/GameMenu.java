@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public abstract class GameMenu {
 
-	protected static final String MENU_LINE_SEPARATOR = "---------------------------";
+	public static final String MENU_LINE_SEPARATOR = "---------------------------";
 	protected Scanner scanner = new Scanner(System.in);
 	protected String selectedOption;
 

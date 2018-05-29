@@ -2,7 +2,6 @@ package saving;
 
 import character.Person;
 
-import java.io.File;
 import java.io.IOException;
 
 /**

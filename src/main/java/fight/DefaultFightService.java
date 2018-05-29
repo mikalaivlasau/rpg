@@ -1,7 +1,10 @@
 package fight;
 
 import character.Person;
+import character.service.AttackAttributeService;
+import character.service.AttributeService;
 import character.service.DefaultPersonService;
+import character.service.DefenseAttributeService;
 import character.service.PersonService;
 import experience.DefaultExperienceService;
 import experience.ExperienceService;
@@ -20,14 +23,30 @@ public class DefaultFightService implements FightService {
 	private LocationService locationService = new MapLocationService();
 	private ExperienceService experienceService = new DefaultExperienceService();
 	private DisplayService displayService = new DefaultDisplayService();
+	private AttributeService defenseService = new DefenseAttributeService();
+	private AttributeService attackService = new AttackAttributeService();
 	private boolean isPersonWin;
 
 	@Override
 	public boolean fight(Coordinate coordinate) {
 		Person person = personService.getPerson();
+		preparePersonForFight(person);
+
 		Person creature = locationService.getPersonByCoordinate(coordinate);
+		preparePersonForFight(creature);
+
 		processFight(person, creature);
 		return isPersonWin;
+	}
+
+	/**
+	 * Prepares person for fight. Calculates the attack and defense values.
+	 *
+	 * @param person to prepare
+	 */
+	private void preparePersonForFight(Person person) {
+		defenseService.calculate(person);
+		attackService.calculate(person);
 	}
 
 	/**
@@ -75,7 +94,6 @@ public class DefaultFightService implements FightService {
 		} else {
 			displayService.addFightLog("Wow! " + attacker.getName() + " missed");
 		}
-
 
 	}
 

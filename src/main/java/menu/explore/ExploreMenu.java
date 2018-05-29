@@ -8,7 +8,7 @@ import location.map.service.MapLocationService;
 import menu.GameMenu;
 
 public class ExploreMenu extends GameMenu {
-	LocationService locationService = new MapLocationService();
+	private LocationService locationService = new MapLocationService();
 
 	@Override
 	public void processMenu() {
@@ -45,10 +45,9 @@ public class ExploreMenu extends GameMenu {
 					mapLocation.populate();
 					mapLocation.draw();
 					break;
-				case "p":
-					clearConsole();
-					System.out.println("PAUSE!!!");
-					break;
+				default:
+					mapLocation.populate();
+					mapLocation.draw();
 			}
 
 		}

@@ -9,7 +9,7 @@ import menu.explore.ExploreMenu;
 
 public class CreatePersonMenu extends StartMenu {
 
-	public PersonService personService = new DefaultPersonService();
+	private PersonService personService = new DefaultPersonService();
 
 	@Override
 	public void processMenu() {
@@ -18,7 +18,7 @@ public class CreatePersonMenu extends StartMenu {
 		System.out.println("Choose character's class:");
 		System.out.println("1. Warrior");
 		System.out.println("2. Thief");
-		System.out.println("3. Wizard");
+		System.out.println("3. Wizard (very sick and tired :) )");
 		selectedOption = scanner.next();
 		ExploreMenu menu = new ExploreMenu();
 		switch (selectedOption) {

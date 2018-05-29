@@ -2,12 +2,15 @@ package location.map;
 
 import location.Location;
 import location.map.object.CompositeMapObject;
+import menu.service.DefaultDisplayService;
+import menu.service.DisplayService;
 
 import java.util.Arrays;
 
 public class MapLocation implements Location {
 	private MapFieldType[][] map;
 	private CompositeMapObject mapObject;
+	private DisplayService displayService = new DefaultDisplayService();
 
 	public MapLocation(int size, CompositeMapObject mapObject) {
 		this.map = new MapFieldType[size][size];
@@ -30,6 +33,7 @@ public class MapLocation implements Location {
 			}
 			System.out.println();
 		}
+		displayService.drawMapLegend();
 	}
 
 	@Override

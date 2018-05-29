@@ -8,7 +8,7 @@ import character.Person;
 public interface ExperienceService {
 
 	/**
-	 * Processes experience received by {@Person}. Sends character to new level when it is reached.
+	 * Processes experience received by {@link Person}. Sends character to new level when it is reached.
 	 *
 	 * @param person     received experience
 	 * @param experience to process

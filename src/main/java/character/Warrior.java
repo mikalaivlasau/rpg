@@ -12,8 +12,8 @@ public class Warrior extends Person {
 		this.healthMax = 100;
 		this.experience = 0;
 		this.strength = 10;
-		this.agility = 6;
-		this.stamina = 6;
+		this.agility = 3;
+		this.stamina = 4;
 	}
 
 	@Override

@@ -59,7 +59,7 @@ public class DefaultSaveService implements SaveService {
 	@Override
 	public void listFilesForFolder() {
 		File folder = new File(SAVE_DIR);
-		if (folder.exists() ) {
+		if (folder.exists()) {
 			for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
 				System.out.println(fileEntry.getName());
 			}

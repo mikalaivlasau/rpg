@@ -5,6 +5,7 @@ import character.service.DefaultPersonService;
 import character.service.PersonService;
 import experience.DefaultExperienceService;
 import experience.ExperienceService;
+import menu.service.DisplayService;
 
 public class TreasureMenu extends ExploreMenu {
 
@@ -14,6 +15,7 @@ public class TreasureMenu extends ExploreMenu {
 	@Override
 	public void processMenu() {
 		clearConsole();
+		DisplayService.printTreasure();
 		Person person = personService.getPerson();
 		System.out.println("TREASURE!");
 		System.out.println("Please choose the award:");

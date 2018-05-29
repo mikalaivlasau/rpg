@@ -145,19 +145,4 @@ public class MapLocationTest {
 		mapLocation.populate();
 		assertEquals(MapFieldType.EMPTY, mapLocation.getMap()[1][1]);
 	}
-
-//	@Ignore
-//	@Test
-//	public void testMapObjectShouldBeRemovedWhenPersonStepsInto() {
-//		mapLocation.populate();
-//		assertEquals(MapFieldType.CREATURE, mapLocation.getMap()[1][3]);
-//		personMapObject.move(Direction.EAST, mapLocation);
-//		mapLocation.populate();
-//		personMapObject.move(Direction.EAST, mapLocation);
-//
-//		mapLocation.populate();
-//		personMapObject.move(Direction.WEST, mapLocation);
-//		mapLocation.populate();
-//		assertEquals(MapFieldType.EMPTY, mapLocation.getMap()[1][3]);
-//	}
 }

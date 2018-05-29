@@ -13,7 +13,7 @@ import static character.service.DefaultPersonService.STORAGE;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PersonServiceTest {
+public class DefaultPersonServiceTest {
 	@InjectMocks
 	private DefaultPersonService service;
 

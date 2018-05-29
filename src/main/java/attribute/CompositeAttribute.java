@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Composite pattern to store all the characters attributes. Allows calculate their final amount.
+ * Composite pattern to store all the characters attributes: basics, weapons, spells, etc. Allows calculate their
+ * final amount.
  */
 public class CompositeAttribute implements Attribute {
 

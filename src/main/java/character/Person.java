@@ -1,8 +1,5 @@
 package character;
 
-import attribute.Attribute;
-import attribute.CompositeAttribute;
-import attribute.RawBonus;
 import experience.Level;
 
 import java.io.Serializable;
@@ -22,6 +19,9 @@ public abstract class Person implements Serializable {
 	int defense;
 	Level level = Level.ONE;
 
+	/**
+	 * Allow person use a class power. Not used for now.
+	 */
 	public abstract void useClassPower();
 
 	public void levelUp(Level level) {
@@ -95,10 +95,7 @@ public abstract class Person implements Serializable {
 	}
 
 	public int getAttack() {
-		Attribute basic = new RawBonus(getStrength());
-		CompositeAttribute finalAttack = new CompositeAttribute();
-		finalAttack.addComponent(basic);
-		return finalAttack.calculate();
+		return attack;
 	}
 
 	public void setAttack(int attack) {
@@ -106,10 +103,7 @@ public abstract class Person implements Serializable {
 	}
 
 	public int getDefense() {
-		Attribute basic = new RawBonus(getStamina());
-		CompositeAttribute finalDefense = new CompositeAttribute();
-		finalDefense.addComponent(basic);
-		return finalDefense.calculate();
+		return defense;
 	}
 
 	public void setDefense(int defense) {

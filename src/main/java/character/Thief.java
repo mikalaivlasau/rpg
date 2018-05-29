@@ -12,8 +12,8 @@ public class Thief extends Person {
 		this.healthMax = 70;
 		this.experience = 0;
 		this.strength = 6;
-		this.agility = 10;
-		this.stamina = 6;
+		this.agility = 9;
+		this.stamina = 2;
 	}
 
 	@Override
