@@ -3,7 +3,7 @@ package character;
 import experience.Level;
 
 /**
- * Just a mob.
+ * Just a creature.
  */
 public class Skeleton extends Person {
 	public Skeleton() {

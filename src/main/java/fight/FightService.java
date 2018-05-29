@@ -3,7 +3,7 @@ package fight;
 import location.map.Coordinate;
 
 /**
- * Service for managing fights between character and mobs.
+ * Service for managing fights between character and enemies.
  */
 public interface FightService {
 

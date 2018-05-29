@@ -8,11 +8,9 @@ import experience.ExperienceService;
 import location.map.Coordinate;
 import location.map.service.LocationService;
 import location.map.service.MapLocationService;
-import menu.GameMenu;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import menu.service.DefaultDisplayService;
+import menu.service.DisplayService;
+import util.RandomUtil;
 
 /**
  * Default implementation of {@link FightService}.
@@ -21,7 +19,7 @@ public class DefaultFightService implements FightService {
 	private PersonService personService = new DefaultPersonService();
 	private LocationService locationService = new MapLocationService();
 	private ExperienceService experienceService = new DefaultExperienceService();
-	private List<String> fightLogs = new ArrayList<>();
+	private DisplayService displayService = new DefaultDisplayService();
 	private boolean isPersonWin;
 
 	@Override
@@ -33,58 +31,20 @@ public class DefaultFightService implements FightService {
 	}
 
 	/**
-	 * Draw stats table of the character and creature. Displays logs of the fight.
-	 *
-	 * @param person   the character
-	 * @param creature the mob
-	 */
-	private void drawFightStatsAndLogs(Person person, Person creature) {
-		GameMenu.clearConsole();
-
-		String nameFormat = "| %-22s || %22s |%n";
-
-		String statsFormat = "| %-15s | %-4d || %4d | %15s |%n";
-
-		System.out.format("+------------------------++------------------------+%n");
-		System.out.format(nameFormat, person.getName(), creature.getName());
-		System.out.format("+-----------------+------++------+-----------------+%n");
-
-		System.out.format(statsFormat, "HP", person.getHealth(), creature.getHealth(), "HP");
-
-		System.out.format(statsFormat, "Strength", person.getStrength(), creature.getStrength(), "Strength");
-		System.out.format(statsFormat, "Agility", person.getAgility(), creature.getAgility(), "Agility");
-		System.out.format(statsFormat, "Stamina", person.getStamina(), creature.getStamina(), "Stamina");
-		System.out.format("+-----------------+------++------+-----------------+%n");
-		System.out.format(statsFormat, "Attack", person.getAttack(), creature.getAttack(), "Attack");
-		System.out.format(statsFormat, "Defense", person.getDefense(), creature.getDefense(), "Defense");
-		System.out.format("+-----------------+------++------+-----------------+%n%n");
-
-		System.out.println(creature.getName() + ": Die human!");
-
-		fightLogs.forEach(System.out::println);
-
-		try {
-			TimeUnit.MILLISECONDS.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Processes fight till someone is dead. Redraws fight stats, HP and logs after each step. If character wins,
 	 * gives him experience.
 	 *
 	 * @param person   the character
-	 * @param creature the mob
+	 * @param creature the enemy
 	 */
 	private void processFight(Person person, Person creature) {
-		drawFightStatsAndLogs(person, creature);
+		displayService.drawFightStatsAndLogs(person, creature);
 		do {
 			attack(person, creature);
-			drawFightStatsAndLogs(person, creature);
+			displayService.drawFightStatsAndLogs(person, creature);
 			if (creature.isAlive()) {
 				attack(creature, person);
-				drawFightStatsAndLogs(person, creature);
+				displayService.drawFightStatsAndLogs(person, creature);
 			}
 		} while (person.isAlive() && creature.isAlive());
 
@@ -99,16 +59,36 @@ public class DefaultFightService implements FightService {
 	}
 
 	/**
-	 * Makes an attack. Calculates damage based on attack and defense.
+	 * Makes an attack. Calculates damage based on attack and defense with a bit of random.
 	 *
 	 * @param attacker attacks
 	 * @param defender defends
 	 */
 	private void attack(Person attacker, Person defender) {
-		int damage = Math.max(0, attacker.getAttack() - defender.getDefense());
-		int health = Math.max(0, defender.getHealth() - damage);
-		defender.setHealth(health);
+		if (isAttackSuccessful(attacker.getAgility(), defender.getAgility())) {
+			int sum = attacker.getAttack() + defender.getDefense();
+			int randomValue = RandomUtil.getRandomValueInRange(1, sum);
+			int damage = Math.max(0, randomValue - defender.getDefense());
+			int remainingHealth = Math.max(0, defender.getHealth() - damage);
+			defender.setHealth(remainingHealth);
+			displayService.addFightLog(attacker.getName() + "'s attack does " + damage + " damage!");
+		} else {
+			displayService.addFightLog("Wow! " + attacker.getName() + " missed");
+		}
 
-		fightLogs.add(attacker.getName() + "'s attack does " + damage + " damage!");
+
+	}
+
+	/**
+	 * Checks if attacker missed or hit based on agility with a bit of random.
+	 *
+	 * @param attackerAgility agility of attacker
+	 * @param defenderAgility agility of defender
+	 * @return is attack successful
+	 */
+	private boolean isAttackSuccessful(int attackerAgility, int defenderAgility) {
+		int agilitySum = attackerAgility + defenderAgility;
+		int randomValue = RandomUtil.getRandomValueInRange(1, agilitySum);
+		return randomValue > defenderAgility;
 	}
 }
