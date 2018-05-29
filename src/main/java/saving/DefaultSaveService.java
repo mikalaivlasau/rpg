@@ -10,7 +10,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Objects;
 
+/**
+ * Default implementation of {@link SaveService}.
+ */
 public class DefaultSaveService implements SaveService {
 
 	private static final String SAVE_DIR = "save";
@@ -36,18 +40,29 @@ public class DefaultSaveService implements SaveService {
 	}
 
 	@Override
-	public Person load(String filename) {
+	public Person load(String filename) throws IOException {
 		Person person = null;
+		FileInputStream fileInputStream = new FileInputStream(SAVE_DIR + File.separator + filename);
+		ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 		try {
-			FileInputStream fileInputStream = new FileInputStream(SAVE_DIR + File.separator + filename);
-			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 			person = (Person) objectInputStream.readObject();
-			objectInputStream.close();
-		} catch (Exception e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		objectInputStream.close();
+
 		personService.removePerson();
 		personService.saveNewCharacter(person);
 		return person;
+	}
+
+	@Override
+	public void listFilesForFolder() {
+		File folder = new File(SAVE_DIR);
+		if (folder.exists() ) {
+			for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
+				System.out.println(fileEntry.getName());
+			}
+		}
 	}
 }

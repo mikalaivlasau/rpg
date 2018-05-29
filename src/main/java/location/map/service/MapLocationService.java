@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Map based implementation of the {@link LocationService}.
+ */
 public class MapLocationService implements LocationService {
 	private static final Map<String, Person> STORAGE = new HashMap<>();
 	private List<Coordinate> coordinateList = new ArrayList<>();
@@ -60,10 +63,17 @@ public class MapLocationService implements LocationService {
 		return STORAGE.get(coordinate.toString());
 	}
 
+	@Override
 	public void removePersonByCoordinate(Coordinate coordinate) {
 		STORAGE.remove(coordinate.toString());
 	}
 
+	/**
+	 * Generate unique random {@link Coordinate}.
+	 *
+	 * @param size of map
+	 * @return new coordinate
+	 */
 	private Coordinate getUniqueRandomCoordinate(int size) {
 		Coordinate randomCoordinate = RandomUtil.getRandomCoordinate(size);
 		if (coordinateList.contains(randomCoordinate)) {

@@ -4,6 +4,9 @@ import character.Person;
 import location.map.Coordinate;
 import location.map.MapFieldType;
 
+/**
+ * Map object represents creature.
+ */
 public class CreatureMapObject extends MapObject {
 	private Person creature;
 

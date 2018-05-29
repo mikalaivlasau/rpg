@@ -2,6 +2,9 @@ package character;
 
 import experience.Level;
 
+/**
+ * Wizard. Primary skill is stamina.
+ */
 public class Wizard extends Person {
 	public Wizard(String name) {
 		this.name = name;

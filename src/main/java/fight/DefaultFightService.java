@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Default implementation of {@link FightService}.
+ */
 public class DefaultFightService implements FightService {
 	private PersonService personService = new DefaultPersonService();
 	private LocationService locationService = new MapLocationService();
@@ -29,6 +32,12 @@ public class DefaultFightService implements FightService {
 		return isPersonWin;
 	}
 
+	/**
+	 * Draw stats table of the character and creature. Displays logs of the fight.
+	 *
+	 * @param person   the character
+	 * @param creature the mob
+	 */
 	private void drawFightStatsAndLogs(Person person, Person creature) {
 		GameMenu.clearConsole();
 
@@ -55,12 +64,19 @@ public class DefaultFightService implements FightService {
 		fightLogs.forEach(System.out::println);
 
 		try {
-			TimeUnit.MILLISECONDS.sleep(100);
+			TimeUnit.MILLISECONDS.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Processes fight till someone is dead. Redraws fight stats, HP and logs after each step. If character wins,
+	 * gives him experience.
+	 *
+	 * @param person   the character
+	 * @param creature the mob
+	 */
 	private void processFight(Person person, Person creature) {
 		drawFightStatsAndLogs(person, creature);
 		do {
@@ -82,6 +98,12 @@ public class DefaultFightService implements FightService {
 		}
 	}
 
+	/**
+	 * Makes an attack. Calculates damage based on attack and defense.
+	 *
+	 * @param attacker attacks
+	 * @param defender defends
+	 */
 	private void attack(Person attacker, Person defender) {
 		int damage = Math.max(0, attacker.getAttack() - defender.getDefense());
 		int health = Math.max(0, defender.getHealth() - damage);

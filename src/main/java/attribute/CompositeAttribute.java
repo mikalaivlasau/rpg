@@ -3,6 +3,9 @@ package attribute;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Composite pattern to store all the characters attributes. Allows calculate their final amount.
+ */
 public class CompositeAttribute implements Attribute {
 
 	private List<Attribute> components = new ArrayList<>();

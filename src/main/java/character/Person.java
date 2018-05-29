@@ -7,6 +7,9 @@ import experience.Level;
 
 import java.io.Serializable;
 
+/**
+ * An abstract class represents the character.
+ */
 public abstract class Person implements Serializable {
 	String name;
 	int health;

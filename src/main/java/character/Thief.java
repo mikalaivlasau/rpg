@@ -2,6 +2,9 @@ package character;
 
 import experience.Level;
 
+/**
+ * Thief. Primary skill is agility.
+ */
 public class Thief extends Person {
 	public Thief(String name) {
 		this.name = name;

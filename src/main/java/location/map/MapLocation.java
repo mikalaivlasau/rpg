@@ -33,10 +33,13 @@ public class MapLocation implements Location {
 	}
 
 	@Override
-	public MapFieldType checkField(int x, int y) {
-		return map[y][x];
+	public MapFieldType checkField(Coordinate coordinate) {
+		return map[coordinate.getY()][coordinate.getX()];
 	}
 
+	/**
+	 * Populate map with empty fields and walls on the border.
+	 */
 	private void cleanMap() {
 		for (MapFieldType[] array : map) {
 			Arrays.fill(array, MapFieldType.WALL);

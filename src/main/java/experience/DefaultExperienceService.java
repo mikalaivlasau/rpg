@@ -2,10 +2,12 @@ package experience;
 
 import character.Person;
 
+/**
+ * Default implementation of {@link ExperienceService}.
+ */
 public class DefaultExperienceService implements ExperienceService {
 	@Override
 	public void processExperience(Person person, int experience) {
-
 		person.setExperience(person.getExperience() + experience);
 		System.out.println(person.getName() + " received " + experience + " experience!");
 

@@ -1,5 +1,8 @@
 package attribute;
 
+/**
+ * {@link Attribute}'s implementation represents raw bonus.
+ */
 public class RawBonus implements Attribute {
 
 	private int value;

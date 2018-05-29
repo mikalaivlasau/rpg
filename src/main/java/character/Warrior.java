@@ -2,6 +2,9 @@ package character;
 
 import experience.Level;
 
+/**
+ * Warrior. Primary skill is strength.
+ */
 public class Warrior extends Person {
 	public Warrior(String name) {
 		this.name = name;

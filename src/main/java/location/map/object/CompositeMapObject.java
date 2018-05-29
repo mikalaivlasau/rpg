@@ -6,6 +6,9 @@ import location.map.MapFieldType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Composite pattern to store all map objects. Allows arrange the whole map with all map objects.
+ */
 public class CompositeMapObject extends MapObject {
 	private List<MapObject> objects = new ArrayList<>();
 
@@ -20,6 +23,11 @@ public class CompositeMapObject extends MapObject {
 		objects.add(location);
 	}
 
+	/**
+	 * Gets the characters map object.
+	 *
+	 * @return person map object
+	 */
 	public PersonMapObject getPersonMapObject() {
 		return (PersonMapObject) objects.stream()
 				.filter(o -> o instanceof PersonMapObject)
@@ -31,6 +39,12 @@ public class CompositeMapObject extends MapObject {
 		objects.remove(location);
 	}
 
+	/**
+	 * Removes map object based on coordinate.
+	 *
+	 * @param coordinate of the map object
+	 * @param composite  the composite map object
+	 */
 	public void removeObject(Coordinate coordinate, CompositeMapObject composite) {
 		for (MapObject obj : composite.getObjects()) {
 			if (obj instanceof CompositeMapObject) {
@@ -44,6 +58,11 @@ public class CompositeMapObject extends MapObject {
 		}
 	}
 
+	/**
+	 * Determines whether {@link PersonMapObject} is alone on the map.
+	 *
+	 * @return true if alone
+	 */
 	public boolean isEmpty() {
 		boolean isEmpty = true;
 		for (MapObject obj : objects) {

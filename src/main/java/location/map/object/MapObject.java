@@ -13,14 +13,29 @@ import menu.main.MainMenu;
 
 import static menu.GameMenu.clearConsole;
 
+/**
+ * The object on the map.
+ */
 public abstract class MapObject {
 	Coordinate coordinate = new Coordinate(-1, -1);
 
+	/**
+	 * Arranges map. Put specific objects.
+	 *
+	 * @param map to arrange
+	 */
 	public abstract void arrange(MapFieldType[][] map);
 
+	/**
+	 * Moves character on the map. Checks the target field and decides what to do: fight, get treasure or just go.
+	 *
+	 * @param direction to move
+	 * @param location  the map
+	 */
 	public void move(Direction direction, Location location) {
 		Coordinate coordinate = changePosition(direction);
-		MapFieldType fieldType = location.checkField(coordinate.getX(), coordinate.getY());
+		MapFieldType fieldType = location.checkField(coordinate);
+		MapLocation mapLocation = (MapLocation) location;
 		switch (fieldType) {
 			case EMPTY:
 				this.coordinate = coordinate;
@@ -29,20 +44,18 @@ public abstract class MapObject {
 				FightService fightService = new DefaultFightService();
 				boolean isPersonWin = fightService.fight(coordinate);
 				if (isPersonWin) {
-					MapLocation mapLocation = (MapLocation) location;
 					mapLocation.getMapObject().removeObject(coordinate, mapLocation.getMapObject());
+					this.coordinate = coordinate;
 				} else {
 					clearConsole();
 					System.out.println("THE END!!!");
 					GameMenu mainMenu = new MainMenu();
 					mainMenu.processMenu();
 				}
-				this.coordinate = coordinate;
 				break;
 			case TREASURE:
 				GameMenu treasureMenu = new TreasureMenu();
 				treasureMenu.processMenu();
-				MapLocation mapLocation = (MapLocation) location;
 				mapLocation.getMapObject().removeObject(coordinate, mapLocation.getMapObject());
 				this.coordinate = coordinate;
 				break;
@@ -50,6 +63,12 @@ public abstract class MapObject {
 
 	}
 
+	/**
+	 * Changes coordinate based on {@link Direction}.
+	 *
+	 * @param direction to go
+	 * @return new coordinate
+	 */
 	private Coordinate changePosition(Direction direction) {
 		Coordinate coordinate = new Coordinate(getCoordinate().getX(), getCoordinate().getY());
 		switch (direction) {

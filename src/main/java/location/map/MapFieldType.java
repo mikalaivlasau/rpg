@@ -1,5 +1,8 @@
 package location.map;
 
+/**
+ * Enumeration of field types and their drawable signs.
+ */
 public enum MapFieldType {
 	EMPTY("."),
 	PERSON("X"),

@@ -2,6 +2,9 @@ package character;
 
 import experience.Level;
 
+/**
+ * Just a mob.
+ */
 public class Skeleton extends Person {
 	public Skeleton() {
 		this.name = "Skeleton";
@@ -15,11 +18,11 @@ public class Skeleton extends Person {
 
 	@Override
 	public void useClassPower() {
-		System.out.println("Joooooohn Ceeena!");
+		System.out.println("Aaahhr!!!");
 	}
 
 	@Override
 	public void levelUp(Level level) {
-
+		// Nothing to do
 	}
 }
