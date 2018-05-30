@@ -1,11 +1,14 @@
 package menu.main;
 
 import menu.GameMenu;
+import menu.service.DisplayService;
 
 public class MainMenu extends GameMenu {
 
 	@Override
 	public void processMenu() {
+		GameMenu.clearConsole();
+		DisplayService.printMainLogo();
 		showMenu();
 		selectedOption = scanner.next();
 		switch (selectedOption) {
